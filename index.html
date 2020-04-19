@@ -1,4 +1,5 @@
 <html lang='eng'>
+<p><strong>Problem Set 6: Sarah Littlefield</p></strong>
     <head>
         <title>
             Mapping with D3
@@ -32,6 +33,11 @@ path {
           border: 0px;
           pointer-events: none;
       }
+
+      text {
+            font: 14px Arial;
+            color: white;
+        }
 
 </style>
     </head>
@@ -80,6 +86,24 @@ path {
   							 .attr("opacity","0.7")
                  .style("padding","3px")
                  .attr("transform", "translate(110, 50)")
+            svg.selectAll("text")
+            .data(agriculturedata)
+            .enter()
+            .append("text")
+            .attr("text-anchor", "start")
+
+            .text(function(d){return d[0]})
+            .attr("y", function(d, i) {
+                    return i*30 + 95;
+               })
+            .attr("x", 7)
+
+            svg.append("text")
+            .attr("text-anchor", "middle")
+            .style("font-size", "18px")
+            .style("text-decoration", "underline")
+            .text("agricultural in 2016 (as a percentage of total land)")
+            .attr("transform", "translate(210, 40)");
 
   			var group = svg.append("g")
   							;
@@ -152,6 +176,7 @@ path {
                 .style("position", "absolute")
                 .style("visibility", "visible")
                 .style("background", "white")
+                .style("padding", "5px")
                 .text(" ");
 
 
@@ -187,7 +212,7 @@ path {
               tooltip.transition()
               .duration(200)
               .style("opacity", .9);
-              tooltip.html(d.properties.Name + ":" + data311.get(d.properties.OBJECTID))
+              tooltip.html(d.properties.Name + ":" + d.twitter)
               .style("left", (d3.event.pageX) + "px")
               .style("top", (d3.event.pageY - 28) + "px");
             })
